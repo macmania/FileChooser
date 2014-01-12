@@ -17,11 +17,18 @@ import javafx.scene.control.Label;
 import Models.DataModel;
 import Models.DataModelFilter;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
@@ -31,6 +38,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -134,7 +142,7 @@ public class MainController implements Initializable {
     }    
     
     @FXML 
-    public void handleLoadButton(MouseEvent e){
+    public void handleLoadButton(MouseEvent e) throws IOException{
        if(e.getEventType() == MouseEvent.MOUSE_ENTERED){
            loadFile.setEffect(shadow);
            FileChooser chooseFile = new FileChooser(); 
@@ -144,8 +152,19 @@ public class MainController implements Initializable {
           //  chooseFile.getExtensionFilters().add(extFilter);
              
             //Show open file dialog
-           file = chooseFile.showOpenDialog(null);
-
+           Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+           
+           Scene scene = new Scene(root);
+           Stage stage = new Stage(); 
+           stage.setScene(scene);
+           
+           
+           stage.show(); 
+           List<File> list = chooseFile.showOpenMultipleDialog(stage);
+           if(list != null){
+                    System.out.println("opened file"); 
+           }
+        
        }else if(e.getEventType() == MouseEvent.MOUSE_EXITED){
            loadFile.setEffect(null);
        }
