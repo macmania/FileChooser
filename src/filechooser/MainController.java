@@ -140,11 +140,11 @@ public class MainController implements Initializable {
            FileChooser chooseFile = new FileChooser(); 
 
            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("AVI files (*.avi)", "*.avi");
-            chooseFile.getExtensionFilters().add(extFilter);
+            //FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("AVI files (*.avi)", "*.avi");
+          //  chooseFile.getExtensionFilters().add(extFilter);
              
             //Show open file dialog
-            file = chooseFile.showOpenDialog(null);
+           file = chooseFile.showOpenDialog(null);
 
        }else if(e.getEventType() == MouseEvent.MOUSE_EXITED){
            loadFile.setEffect(null);
