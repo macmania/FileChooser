@@ -8,9 +8,9 @@ package Models;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -19,15 +19,20 @@ import javafx.beans.property.SimpleStringProperty;
 public class DataModel {
     public enum Employment {Employed, Unemployed}; 
     
-    private SimpleStringProperty name = new SimpleStringProperty(""); 
-    private SimpleObjectProperty<Employment> empl = new SimpleObjectProperty<>(); 
+    private SimpleStringProperty name;  
+    private SimpleObjectProperty<Employment> empl;
     private BooleanProperty isSelected; 
     
     public DataModel(String name, Employment empl, boolean isSelected){
-        this.isSelected = new SimpleBooleanProperty(isSelected); 
-        setName(name);
-        setEmpl(empl); 
+        this.isSelected =  new SimpleBooleanProperty(isSelected);
+        //setIsSelected(isSelected);//this.isSelected = new SimpleBooleanProperty(isSelected); 
+        this.name = new SimpleStringProperty(name);
+        this.empl = new SimpleObjectProperty<>(empl);
     }
+    
+    public BooleanProperty isSelectedProperty() {return isSelected;}
+    public SimpleObjectProperty<Employment> emplProperty(){ return empl; }
+    public StringProperty nameProperty(){return name;}
     
     public String getName() {
         return name.getValue();
@@ -52,6 +57,8 @@ public class DataModel {
     public void setIsSelected(boolean isSelected) {
         this.isSelected.set(isSelected);
     }
+    
+    
 }
 
 

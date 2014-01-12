@@ -7,7 +7,7 @@
 package Views;
 
 /**
- *
+ * Temporary stub that holds the view for the files
  * @author jojofabe
  */
 public class FileChooseView {

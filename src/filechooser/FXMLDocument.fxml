@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -19,14 +20,17 @@
         </TableView>
       </items>
     </SplitPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="742.9999000000025" prefWidth="426.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="731.0" prefWidth="426.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
       <children>
         <ListView fx:id="fileListView" prefHeight="651.0" prefWidth="317.0" AnchorPane.bottomAnchor="46.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="46.0" />
-        <Button fx:id="loadFile" layoutX="76.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleLoadButton" text="Load File" />
-        <Button fx:id="addFilter" layoutX="71.0" layoutY="708.0" mnemonicParsing="false" onMouseClicked="#handleAddFilterButton" text="Add Filter" />
-        <Button fx:id="saveFile" layoutX="342.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleSaveFileButton" text="Save File" />
-        <Button fx:id="removeFilter" layoutX="310.0" layoutY="708.0" mnemonicParsing="false" onMouseClicked="#handleRemoveFilterButton" text="Remove Filter" />
+        <Button fx:id="loadFile" layoutX="71.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadButton" text="Load File" />
+        <Button fx:id="addFilter" layoutX="71.0" mnemonicParsing="false" onAction="#handleAddFilterButton" text="Add Filter" AnchorPane.bottomAnchor="14.0" />
+        <Button id="saveFile" fx:id="saveFilter" layoutX="350.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSaveFilterButton" text="Save Filter" />
+        <Button fx:id="removeFilter" layoutX="310.0" mnemonicParsing="false" onAction="#handleRemoveFilterButton" text="Remove Filter" AnchorPane.bottomAnchor="14.0" />
       </children>
     </AnchorPane>
   </children>
+  <stylesheets>
+    <URL value="@../Style/TableStyle.css" />
+  </stylesheets>
 </AnchorPane>
