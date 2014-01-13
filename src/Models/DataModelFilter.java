@@ -1,18 +1,22 @@
 package Models;
 
+import java.util.List;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 //temp class
-public class DataModelFilter {
+public class DataModelFilter{
     StringProperty name; 
-    SimpleListProperty<DataModel> dataModList = new SimpleListProperty<>(); 
+    ListProperty<DataModel> dataModList = new SimpleListProperty<>(); 
     
-    public DataModelFilter(String str, DataModel add){
-        this.name = new SimpleStringProperty(str); 
-        
-        if (add != null) addList(add);
+    // @Override
+    public DataModelFilter(String name, ObservableList<DataModel> listModels){
+        if(listModels != null)
+            dataModList.set(listModels);//;addAll(listModels);
+        this.name = new SimpleStringProperty(name); 
     }
     
     public void setName(String str){
@@ -29,6 +33,6 @@ public class DataModelFilter {
     
     public StringProperty nameProperty() {return name; }
 
-    public SimpleListProperty<DataModel> dataModListProperty() {return dataModList;}
+    public ListProperty<DataModel> dataModListProperty() {return dataModList;}
 }
     
