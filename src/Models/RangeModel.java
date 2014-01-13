@@ -29,7 +29,12 @@ public class RangeModel extends InputModel{
         //message on the console log
         if(input != null || !input.equals(""))
             this.input = new SimpleStringProperty(input); 
-        else this.input = new SimpleStringProperty(); 
+        else this.input = new SimpleStringProperty(""); 
+    } 
+    
+    public RangeModel() { 
+        this.input = new SimpleStringProperty(""); 
+        
     } 
     
     public String getInput() { return this.input.getValue();}

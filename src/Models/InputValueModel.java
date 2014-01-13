@@ -23,8 +23,9 @@ public class InputValueModel extends InputModel {
         if(options != null || !options.isEmpty()) options.setAll(options);
     }
     
-    public InputValueModel(){
-        choices.add("");
+    public InputValueModel(ObservableList<String> list){
+        
+        choices.set(list);
    //     choices.get().add("");
         
     }

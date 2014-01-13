@@ -29,7 +29,7 @@ public class DataModel{
     private BooleanProperty isSelected; 
     private SimpleObjectProperty<InputValueModel> inputModel; 
     private SimpleStringProperty userInput; 
-    private ObjectProperty input; 
+    private ObjectProperty<?> input; 
     
     public DataModel(String name, Employment empl, boolean isSelected){
         this.isSelected =  new SimpleBooleanProperty(isSelected);
@@ -78,7 +78,8 @@ public class DataModel{
     public StringProperty nameProperty(){return name;}
     public StringProperty userInputProperty() { return userInput;}
     public SimpleObjectProperty<InputValueModel> inputModelProperty(){return inputModel;}
-            
+    public ObjectProperty<?> inputProperty() {return input;}
+    
     public String getName() {
         return name.getValue();
     }
@@ -109,7 +110,9 @@ public class DataModel{
     
     public InputValueModel getInputModel() { return inputModel.getValue();}
     
+    public Object getInput() {return input.getValue();}
     
+    //public void setInput(Object input) { this.input.setValue(input);}
    
 }
 

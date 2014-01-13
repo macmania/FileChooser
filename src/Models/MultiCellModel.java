@@ -20,14 +20,29 @@ public class MultiCellModel extends TableCell<DataModel, Object>{
     TextField textField; 
     ComboBox comboBox; 
     
-    public MultiCellModel(){ }
+    public MultiCellModel(){
+       
+        if (getItem() instanceof InputValueModel) {
+            comboBox = new ComboBox(); 
+            if (comboBox != null) {
+              comboBox.setValue(((InputValueModel)getItem()).getInput());
+            }
+            setText(null);
+            setGraphic(comboBox);
+       }else if(getItem() instanceof RangeModel) {
+            textField = new TextField();  
+            //setText(null);
+            setGraphic(textField);
+            textField.setEditable(true);
+          } 
+    }
     
     @Override 
     public void startEdit() {
         if (!isEmpty()) {
           super.startEdit();
 
-          if (getItem() instanceof String) {
+          if (getItem() instanceof RangeModel) {
             createTextField();
             setText(null);
             setGraphic(textField);
@@ -57,26 +72,23 @@ public class MultiCellModel extends TableCell<DataModel, Object>{
         setText(null);
         setGraphic(null);
       } else {
-        if (isEditing()) {
-          if (getItem() instanceof InputValueModel) {
+          if (item instanceof InputValueModel) {
+            comboBox = new ComboBox(); 
             if (comboBox != null) {
-              comboBox.setValue(((InputValueModel)getItem()).getInput());
+              comboBox.setValue(((InputValueModel)item).getInput());
             }
             setText(null);
             setGraphic(comboBox);
-          } else if(getItem() instanceof String) {
-            if (textField != null) {
+          } else if(item instanceof RangeModel) {
+            textField = new TextField(); 
+              if (textField != null) {
               textField.setText(getInputString());
             }
             setText(null);
             setGraphic(textField);
           }  
-        } else {
-          setText(getInputString());
-          setGraphic(null);
-        }
+        } 
       }
-    }
  
     private void createTextField() {
       assert getItem() instanceof String; 

@@ -34,5 +34,7 @@ public class DataModelFilter{
     public StringProperty nameProperty() {return name; }
 
     public ListProperty<DataModel> dataModListProperty() {return dataModList;}
+
+    
 }
     
