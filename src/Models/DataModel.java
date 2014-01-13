@@ -6,11 +6,11 @@
 
 package Models;
 
+import ViewModel.InputValueModel;
+import ViewModel.RangeModel;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -27,13 +27,10 @@ public class DataModel{
     private SimpleStringProperty name;  
     private SimpleObjectProperty<Employment> empl;
     private BooleanProperty isSelected; 
-    private SimpleObjectProperty<InputValueModel> inputModel; 
-    private SimpleStringProperty userInput; 
-    private ObjectProperty<?> input; 
+    private Property input; 
     
     public DataModel(String name, Employment empl, boolean isSelected){
         this.isSelected =  new SimpleBooleanProperty(isSelected);
-        //setIsSelected(isSelected);//this.isSelected = new SimpleBooleanProperty(isSelected); 
         this.name = new SimpleStringProperty(name);
         this.empl = new SimpleObjectProperty<>(empl);
        
@@ -42,25 +39,24 @@ public class DataModel{
                 System.out.println("changed");
             }
 	});
-        this.inputModel = new SimpleObjectProperty<InputValueModel> (); 
  
         if(this.empl.getValue() == Employment.Employed){
-            input = new SimpleObjectProperty<InputValueModel>(); 
-            assert input instanceof InputValueModel;
+            InputValueModel mod = new InputValueModel();
+            
+            input = new SimpleObjectProperty(); input.setValue(mod);
+            System.out.println(input.getValue().getClass().toString()); 
+            assert input.getValue() instanceof InputValueModel;
         }
         else if(this.empl.getValue() == Employment.Unemployed){
-            input = new SimpleObjectProperty<RangeModel>(); 
-            assert input instanceof RangeModel;
+            input = new SimpleObjectProperty(new RangeModel()); 
         }
             
     }
     
      public DataModel(String name, Employment empl, boolean isSelected, InputValueModel model){
         this.isSelected =  new SimpleBooleanProperty(isSelected);
-        //setIsSelected(isSelected);//this.isSelected = new SimpleBooleanProperty(isSelected); 
         this.name = new SimpleStringProperty(name);
         this.empl = new SimpleObjectProperty<>(empl);
-        this.inputModel = new SimpleObjectProperty<>(model);
         this.isSelected.addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
                 System.out.println("changed");
@@ -76,9 +72,9 @@ public class DataModel{
     public BooleanProperty isSelectedProperty() {return isSelected;}
     public SimpleObjectProperty<Employment> emplProperty(){ return empl; }
     public StringProperty nameProperty(){return name;}
-    public StringProperty userInputProperty() { return userInput;}
-    public SimpleObjectProperty<InputValueModel> inputModelProperty(){return inputModel;}
-    public ObjectProperty<?> inputProperty() {return input;}
+    public Property inputProperty() {
+        return input;
+    }
     
     public String getName() {
         return name.getValue();
@@ -104,15 +100,13 @@ public class DataModel{
         this.isSelected.set(isSelected);
     }
     
-    public void setInputModel(InputValueModel model){
-        this.inputModel.set(model);
+    
+    public void setInput(Object input){
+        this.setInput(input);
     }
     
-    public InputValueModel getInputModel() { return inputModel.getValue();}
+    public Object getInput() {System.out.println(input.getValue()); System.out.println(input.getValue().getClass()); return input.getValue();}
     
-    public Object getInput() {return input.getValue();}
-    
-    //public void setInput(Object input) { this.input.setValue(input);}
    
 }
 
