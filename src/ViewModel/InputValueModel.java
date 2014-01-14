@@ -21,15 +21,10 @@ public class InputValueModel {
     private ListProperty<String> choices = new SimpleListProperty<>(); 
     private ObservableList<String> list; 
     public InputValueModel(String input, ObservableList<String> options){
-        if(input != null || !input.equals("")) this.input.setValue(input);
-        if(options != null || !options.isEmpty()) options.setAll(options);
-    }
-    
-    public InputValueModel(ObservableList<String> list){
-        
-        choices.set(list);
-   //     choices.get().add("");
-        
+        if(input != null || !input.equals("")) 
+            this.input.setValue(input);
+        if(options != null || !options.isEmpty()) 
+            options.setAll(options);
     }
     
     public InputValueModel(){
