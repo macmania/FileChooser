@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 package filechooser;
 
 import ViewModel.CheckBoxCellModel;
@@ -18,7 +19,7 @@ import Models.DataModelFilter;
 import ViewModel.MultiCellModel;
 import java.io.File;
 import java.io.IOException;
-import java.util.function.Predicate;
+import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -179,11 +180,24 @@ public class MainController implements Initializable {
     public void handleLoadButton(MouseEvent e) throws IOException{
         if(e.getEventType() == MouseEvent.MOUSE_ENTERED){
            loadFile.setEffect(shadow);
-           System.out.println("mouse entered"); 
            
         }else if (e.getEventType() == MouseEvent.MOUSE_CLICKED){
            FileChooser chooseFile = new FileChooser(); 
-           File chosenFile = chooseFile.showOpenDialog(null);
+           
+           //Setting the extension filters
+           //"JPG files (*.jpg)", "*.JPG"
+           FileChooser.ExtensionFilter extFilterTXT = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+           FileChooser.ExtensionFilter extFilterCSV = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+           chooseFile.setTitle("Choose filter files");
+           List<File> chosenFile = chooseFile.showOpenMultipleDialog(null);
+           if(!chosenFile.isEmpty())
+           {
+               for(File f : chosenFile){
+                   System.out.println(f.getName());
+               }
+           }
+           
+           //start reading the actual file and add it to the list-view
         }
        else if(e.getEventType() == MouseEvent.MOUSE_EXITED){
            loadFile.setEffect(null);
@@ -197,6 +211,9 @@ public class MainController implements Initializable {
        if(e.getEventType() == MouseEvent.MOUSE_ENTERED){
            saveFilter.setEffect(shadow);
        }
+       else if(e.getEventType() == MouseEvent.MOUSE_CLICKED){
+           //very easy to do, ~15-20 minutes to get everything going
+       }
        else if(e.getEventType() == MouseEvent.MOUSE_EXITED){
            saveFilter.setEffect(null);
        }
@@ -209,25 +226,17 @@ public class MainController implements Initializable {
            addFilter.setEffect(shadow);
        }
        else if(e.getEventType() == MouseEvent.MOUSE_CLICKED){
-           //get the clickable items in table view and store it as a list and 
-           //add it to the listView
            
-           //need to ask Rob on how to better execute this part 
-           final Predicate<DataModel> condition = new Predicate<DataModel>(){
-               public boolean apply(DataModel model){
-                   return model.isSelectedProperty().getValue();
-               }
-
-               @Override
-               public boolean test(DataModel t) {
-                   return apply(t); //To change body of generated methods, choose Tools | Templates.
-               }
-           };
-           ObservableList<DataModel> list = tableView.getItems().filtered(condition);
+           ObservableList<DataModel> list = FXCollections.observableArrayList();
+           ObservableList<DataModel> tempList = tableView.getItems();
+           for(DataModel model : tempList)
+               if(model.getIsSelected())
+                   list.add(model);
 
            if(!filterNameText.getText().equals(""))
                addItemListView(list, filterNameText.getText());
-           else addItemListView(list, "Filter" + fileListView.getItems().size());
+           else 
+               addItemListView(list, "Filter" + fileListView.getItems().size());
        }
        else if(e.getEventType() == MouseEvent.MOUSE_EXITED){
            addFilter.setEffect(null);

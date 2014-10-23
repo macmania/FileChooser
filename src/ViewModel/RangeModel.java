@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+//check out http://stackoverflow.com/questions/13416049/javafx-2-2-fxml-validated-textfield
+//for validation on text-user input, need more research on how to go on constructing regex
+//expressions to check user-input, need to do it manually? :(
+
 package ViewModel;
 
 import javafx.beans.property.SimpleStringProperty;
